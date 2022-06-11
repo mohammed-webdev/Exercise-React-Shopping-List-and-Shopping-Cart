@@ -70,12 +70,21 @@ export default class Container extends Component {
         })
     }
     emptyArray() {
+        let copy = [...this.state.shoppingListItems]
+        for (let i = 0; i < copy.length; i++) {
+
+            let newItem = copy[i]
+            newItem.amount = 1;
+            console.log(copy[i])
+            copy = []
+        }
         this.setState({
-            shoppingListItems: []
+            shoppingListItems: copy
+
         })
     }
     render() {
-         console.log(this.state.shoppingListItems);
+        console.log(this.state.shoppingListItems);
         return (
             <div className='container'>
 
