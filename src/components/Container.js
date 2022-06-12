@@ -13,31 +13,34 @@ export default class Container extends Component {
         this.state = {
             groceryItems: [
                 { id: 1, title: "Kiwi", amount: 1 },
-                { id: 2, title: "Apple", amount: 1 }
+                { id: 2, title: "Apple", amount: 1 },
+                //{id:3,title:banaan,amount:1},
+
             ],
-            shoppingListItems: [],
-            text: "",
+            shoppingListItems: [],//->[{id:1,title:kiwi,amount:1}]
+            text: "", //<-- hi
         }
         this.handleClickGroceryItem = this.handleClickGroceryItem.bind(this)
         this.addValue = this.addValue.bind(this)
         this.emptyArray = this.emptyArray.bind(this)
     }
 
-    handleClickGroceryItem(item) {
+    handleClickGroceryItem(item) {//{id:1,title:kiwi,amount:1}
         const index = this.state.shoppingListItems.indexOf(item)
 
-        if (this.state.shoppingListItems.indexOf(item) === -1) {
+        if (index === -1) {//nee
             this.setState({
-                shoppingListItems: [...this.state.shoppingListItems].concat(item)
+                shoppingListItems: [...this.state.shoppingListItems].concat(item)//-->[{id:1,title:kiwi,amount:1},{id:2,title:apple,amount:1}]
             })
         } else {
             // const copyOfArray = [...this.state.shoppingListItems][this.state.shoppingListItems.indexOf(item)].amount += 1
-            const copyOfArray = [...this.state.shoppingListItems]
+            const copyOfArray = [...this.state.shoppingListItems]// --> [{id:1,title:kiwi,amount:2},{},{},{}]
 
-            let newItem = copyOfArray[index]
+            let newItem = copyOfArray[index] //copyOfArray[0] ---> {id:1,title:kiwi,amount:1} === {id:1,title:kiwi,amount:2}
 
             newItem.amount += 1
             copyOfArray[index] = newItem
+
             console.log(copyOfArray)
             console.log(newItem)
             // console.log(this.state.shoppingListItems[index])
@@ -60,24 +63,29 @@ export default class Container extends Component {
     }
     myText(e) {
         this.setState({
-            text: e.target.value
+            text: e.target.value // <---- hi
         })
     }
     addValue() {
         let obj = { id: this.state.groceryItems.length + 1, title: this.state.text, amount: 1 }
         this.setState({
-            groceryItems: [...this.state.groceryItems].concat(obj)
+            groceryItems: [...this.state.groceryItems].concat(obj) //[{},{},{id:3,title:banaan,amount:1}]
         })
     }
     emptyArray() {
-        let copy = [...this.state.shoppingListItems]
+        let copy = [...this.state.shoppingListItems]//[{kiwi},{apple}] ---> []
         for (let i = 0; i < copy.length; i++) {
 
-            let newItem = copy[i]
-            newItem.amount = 1;
+            let newItem = copy[i] //{kiwi,amount:10}[]
+            newItem.amount = 1; //{kiwi,amount:1}
             console.log(copy[i])
-            copy = []
+           
+            // if (copy.length === copy.length - 1) {
+            //     copy = []
+            // }
+
         }
+        copy = []
         this.setState({
             shoppingListItems: copy
 
